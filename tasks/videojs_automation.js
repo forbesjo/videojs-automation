@@ -12,12 +12,22 @@ module.exports = function(grunt) {
     spawn = require('child_process').spawn,
 
     protractor = function(specs, cb) {
-      spawn(protractorBinPath, [
-        path.resolve(__dirname, '../src/protractor.config.js'),
-        '--specs', specs.join()
-      ], {
-        stdio: 'inherit'
-      }).once('close', cb);
+      grunt.util.spawn({
+        cmd: protractorBinPath,
+        args: [
+          path.resolve(__dirname, '../src/protractor.config.js'),
+          '--specs', specs.join()
+        ],
+        opts: {
+          stdio: 'inherit'
+        }
+      }, function(err, res, code) {
+        if (err) {
+          grunt.log.error(String(res));
+        }
+
+        cb();
+      });
     };
 
   grunt.registerMultiTask('videojs_automation', function() {
