@@ -5,7 +5,7 @@ var q = require('q'),
   config = {},
   now = Date.now();
 
-if (process.env.TEAMCITY_VERSION) {
+if (process.env.TRAVIS || process.env.TEAMCITY_VERSION) {
   config.sauceUser = process.env.SAUCE_USERNAME;
   config.sauceKey = process.env.SAUCE_ACCESS_KEY;
 
