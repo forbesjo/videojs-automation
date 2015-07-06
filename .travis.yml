@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- 0.10
+before_install:
+- npm install -g grunt-cli
+env:
+  global:
+    - secure: mmfV5GUE97pJxFJYZDizYaUf60WLL7jx+jikXPjqL4gk/rncOjupgyR9l303R+yCToDHBQIMK+YhEXl68uHbHqHlVBt1lD1/MxqJHsvkNB3VdaAhWM96yrInnhbzKCypbgUL4pa+ZtaJGyJUx2XZ5XBXvBIHEFmbQogeRGCAEag=
+    - secure: FTFg+VTKX6BzRSqbZKqIap1T5Bpf4V2XZojn5531WUrsS7s/IaHUQmqHXinL5rcvRh9azc0L0GtjBNbuZc8ypsbjTrQ5BJl4PvEOK7kMUMBrrTqtgsYH0NNY4haBz39GOeyIuKm1HzDiqpArLQo/jq1DG/BUJgvxG57VIJc7+gk=
+addons:
+  sauce_connect: true
