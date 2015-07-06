@@ -1,6 +1,7 @@
 var q = require('q'),
   FirefoxProfile = require('firefox-profile'),
   firefoxProfile = new FirefoxProfile(),
+  url = require('url'),
   ip = require('./ip'),
   config = {},
   now = Date.now();
@@ -93,7 +94,11 @@ if (process.env.TRAVIS || process.env.TEAMCITY_VERSION) {
   };
 }
 
-config.baseUrl = 'http://' + ip + ':7777/';
+config.baseUrl = url.format({
+  protocol: 'http',
+  hostname: ip,
+  port: 7777
+});
 
 config.onPrepare = function() {
   var jasmineReporters = require('jasmine-reporters');
