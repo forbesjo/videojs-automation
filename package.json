@@ -1,0 +1,26 @@
+{
+  "name": "videojs-automation",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "main": "src/player.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forbesjo/videojs-automation.git "
+  },
+  "dependencies": {
+    "connect": "^3.4.0",
+    "firefox-profile": "^0.3.11",
+    "grunt": "^0.4.5",
+    "jasmine-reporters": "^2.0.7",
+    "protractor": "^2.1.0",
+    "q": "^1.4.1",
+    "sauce-tunnel": "^2.2.3",
+    "serve-static": "^1.10.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.11.2",
+    "video.js": "^4.12.10"
+  }
+}
