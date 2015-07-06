@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     connect = require('connect'),
     serveStatic = require('serve-static'),
     SauceTunnel = require('sauce-tunnel'),
-    spawn = require('child_process').spawn,
 
     protractor = function(specs, cb) {
       grunt.util.spawn({
@@ -24,6 +23,7 @@ module.exports = function(grunt) {
       }, function(err, res, code) {
         if (err) {
           grunt.log.error(String(res));
+          grunt.warn('Tests failed, protractor exited with code: ' + code, code);
         }
 
         cb();
@@ -63,9 +63,13 @@ module.exports = function(grunt) {
       }
 
     } else {
-      spawn(webdriverManagerPath, ['update'], {
-        stdio: 'inherit'
-      }).once('close', function() {
+      grunt.util.spawn({
+        cmd: webdriverManagerPath,
+        args: ['update'],
+        opts: {
+          stdio: 'inherit'
+        }
+      }, function() {
         protractor(specs, done);
       });
     }
