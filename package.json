@@ -4,7 +4,7 @@
   "scripts": {
     "test": "grunt test"
   },
-  "main": "src/player.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/forbesjo/videojs-automation.git "
