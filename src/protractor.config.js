@@ -2,10 +2,9 @@ var q = require('q'),
   FirefoxProfile = require('firefox-profile'),
   firefoxProfile = new FirefoxProfile(),
   ip = require('./ip'),
-  config = {},
-  now = Date.now();
+  config = {};
 
-if (process.env.TRAVIS || process.env.TEAMCITY_VERSION) {
+if (process.env.CI !== 'false') {
   config.sauceUser = process.env.SAUCE_USERNAME;
   config.sauceKey = process.env.SAUCE_ACCESS_KEY;
 
@@ -40,20 +39,21 @@ if (process.env.TRAVIS || process.env.TEAMCITY_VERSION) {
     //     browser: 'SEVERE'
     //   }
   }].map(function(browser) {
-    browser.name = process.env.TRAVIS ?
-      process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH :
-      browser.browserName + '-' + (browser.version || 'latest') + '-' + browser.platform;
+    if (process.env.TRAVIS) {
+      browser.name = process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH;
+    } else {
+      browser.name = browser.browserName + '-' + (browser.version || 'latest') + '-' + browser.platform;
+    }
 
-    browser.build = process.env.TRAVIS_BUILD_NUMBER || process.env.BUILD_NUMBER;
-    browser['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER || process.env.BUILD_NUMBER;
-
+    browser.build =process.env.BUILD ;
+    browser['tunnel-identifier'] = process.env.TUNNEL_ID ;
     browser.recordVideo = false;
     browser.recordScreenshots = false;
     return browser;
   });
 
   // Max time(sec) for a test suite to run on a VM
-  config.maxDuration = 300;
+  config.maxDuration = 180;
 } else {
   config.getMultiCapabilities = function() {
     var deferred = q.defer();

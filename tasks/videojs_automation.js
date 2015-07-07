@@ -34,22 +34,32 @@ module.exports = function(grunt) {
     var done = this.async(),
       server = connect(),
       opts = this.options({
-        tunneled: false,
+        user: process.env.SAUCE_USERNAME || '',
+        key: process.env.SAUCE_ACCESS_KEY || '',
+        build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
+        tunneled: process.env.TRAVIS ? true : false,
+        tunnelid: process.env.TRAVIS_JOB_NUMBER ||  'local',
+        ci: process.env.TRAVIS || false,
         specs: []
       }),
       specs = Array.isArray(this.data) ? this.data : opts.specs,
       tunnel;
 
+    process.env.SAUCE_USERNAME = opts.user;
+    process.env.SAUCE_ACCESS_KEY = opts.key;
+    process.env.BUILD = opts.build;
+    process.env.TUNNEL_ID = opts.tunnelid;
+    process.env.CI = opts.ci;
+
     server.use(serveStatic('.'));
     server.listen(7777);
 
-    if (process.env.TRAVIS || process.env.TEAMCITY_VERSION) {
+    if (opts.ci) {
       if (opts.tunneled) {
         tunnel = new SauceTunnel(
-          process.env.SAUCE_USERNAME,
-          process.env.SAUCE_ACCESS_KEY,
-          process.env.BUILD_NUMBER || process.env.TRAVIS_JOB_NUMBER,
-          true, ['--tunnel-domains', ip]
+          opts.user, opts.key,
+          opts.tunnelid,
+          opts.tunneled, ['--tunnel-domains', ip]
         );
 
         tunnel.start(function() {
