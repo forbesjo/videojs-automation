@@ -9,6 +9,8 @@ Automation for video.js projects.
 
 `npm install --save-dev videojs-automation`
 
+[Add the secured Sauce Labs username and key to .travis.yml](https://docs.saucelabs.com/ci-integrations/travis-ci/)
+
 ### Example Task
 ```
 videojs_automation: {
