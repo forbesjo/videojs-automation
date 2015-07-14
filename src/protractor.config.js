@@ -5,10 +5,9 @@ var q = require('q'),
   config = {};
 
 if (process.env.CI !== 'false') {
-  config.sauceUser = process.env.SAUCE_USERNAME;
-  config.sauceKey = process.env.SAUCE_ACCESS_KEY;
+  config.maxSessions = 2;
 
-  config.maxSessions = 6;
+  config.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
 
   // Max time(sec) for a test suite to run on a VM
   config.maxDuration = 180;
@@ -25,18 +24,25 @@ config.getMultiCapabilities = function() {
     if (process.env.CI !== 'false') {
       multiCapabilities = [{
         browserName: 'internet explorer',
-        platform: 'Windows 8.1',
-        version: '11'
+        os: 'Windows',
+        os_version: '8.1',
+        browser_version: '11'
+      }, {
+        browserName: 'safari',
+        os: 'OS X',
+        os_version: 'Yosemite',
+        browser_version: '8'
+      }, {
+        browserName: 'firefox',
+        os: 'OS X',
+        os_version: 'Yosemite',
+        loggingPrefs: {
+          browser: 'SEVERE'
+        }
       }, {
         browserName: 'chrome',
-        platform: 'Windows 8.1'
-          // }, {
-          //   browserName: 'firefox',
-          //   platform: 'Linux',
-          //   firefox_profile: encodedProfile,
-          //   loggingPrefs: {
-          //     browser: 'SEVERE'
-          //   }
+        os: 'OS X',
+        os_version: 'Yosemite'
       }];
     } else {
       multiCapabilities = [{
@@ -58,9 +64,10 @@ config.getMultiCapabilities = function() {
       }
 
       browser.build = process.env.BUILD;
-      browser['tunnel-identifier'] = process.env.TUNNEL_ID;
-      browser.recordVideo = false;
-      browser.recordScreenshots = false;
+      browser['browserstack.user'] = process.env.BROWSERSTACK_USER;
+      browser['browserstack.key'] = process.env.BROWSERSTACK_KEY;
+      browser['browserstack.local'] = 'true';
+      browser['browserstack.debug'] = 'true';
       return browser;
     });
 
