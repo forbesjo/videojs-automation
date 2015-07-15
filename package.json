@@ -20,7 +20,9 @@
     "serve-static": "^1.10.0"
   },
   "devDependencies": {
+    "dashjs": "git://github.com/Dash-Industry-Forum/dash.js.git",
     "grunt-contrib-jshint": "^0.11.2",
-    "video.js": "^4.12.10"
+    "video.js": "^4.12.10",
+    "videojs-contrib-dash": "^1.0.1"
   }
 }
