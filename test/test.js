@@ -2,8 +2,8 @@ var url = require('url'),
   Player = require('../src/player');
 
 [
-  'videojs',
-  'videojs-contrib-dash'
+  'videojs'
+  // , 'videojs-contrib-dash'
 ].map(function(p) {
   return describe(p + ' Player', function() {
     var playerUrl = url.resolve(browser.baseUrl, 'test/' + p + '.html');
