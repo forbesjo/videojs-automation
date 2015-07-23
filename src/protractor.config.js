@@ -36,6 +36,7 @@ config.getMultiCapabilities = function() {
         browserName: 'firefox',
         os: 'OS X',
         os_version: 'Yosemite',
+        firefox_profile: encodedProfile,
         loggingPrefs: {
           browser: 'SEVERE'
         }

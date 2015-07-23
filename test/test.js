@@ -9,9 +9,8 @@ var url = require('url'),
 }, {
   suite: 'videojs-contrib-dash',
   isBrowserSupported: function() {
-    // firefox_profile does not seem to be getting passed to BrowserStack
     // the test page does not work in Safari
-    return /chrome|internet explorer/i.test(browser.browserName);
+    return /firefox|chrome|internet explorer/i.test(browser.browserName);
   }
 }].map(function(p) {
   if (p.isBrowserSupported()) {
