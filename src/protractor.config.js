@@ -25,7 +25,7 @@ config.getMultiCapabilities = function() {
       multiCapabilities = [{
         browserName: 'internet explorer',
         os: 'Windows',
-        os_version: '8.1',
+        os_version: '7',
         browser_version: '11'
       }, {
         browserName: 'safari',
