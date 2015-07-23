@@ -50,8 +50,14 @@ var url = require('url'),
       it('should seek (forwards and backwards)', function() {
         player.bigPlayButton().click();
         player.playControl().click();
-        expect(player.currentTime(4)).toBeCloseTo(4, 0);
-        expect(player.currentTime(2)).toBeCloseTo(2, 0);
+
+        player.currentTime(4).then(function(time) {
+          expect().toBeCloseTo(4, 0);
+        });
+
+        player.currentTime(2).then(function(time) {
+          expect(time).toBeCloseTo(2, 0);
+        });
       });
 
       it('should progress', function() {
