@@ -10,10 +10,12 @@
     "url": "https://github.com/forbesjo/videojs-automation.git "
   },
   "dependencies": {
+    "browserstacktunnel-wrapper": "^1.4.0",
     "connect": "^3.4.0",
     "firefox-profile": "^0.3.11",
     "grunt": "^0.4.5",
     "jasmine-reporters": "^2.0.7",
+    "portscanner": "^1.0.0",
     "protractor": "^2.1.0",
     "q": "^1.4.1",
     "sauce-tunnel": "^2.2.3",
