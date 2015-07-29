@@ -27,14 +27,14 @@ var
         '--specs', opts.specs.join(),
       ];
 
-    if (opts.ci && opts.user && opts.key) {
+    if (opts.ci) {
       process.env.CI = opts.ci;
       process.env.BUILD = opts.build;
 
       if (opts.browserstack) {
         process.env.BROWSERSTACK = true;
-        process.env.BROWSERSTACK_USER = opts.user;
-        process.env.BROWSERSTACK_KEY = opts.key;
+        process.env.BROWSERSTACK_USER = opts.browserstackUser;
+        process.env.BROWSERSTACK_KEY = opts.browserstackKey;
         args.push('--seleniumAddress', 'http://hub.browserstack.com/wd/hub');
         args.push('--maxSessions', '2');
       } else {
@@ -70,7 +70,7 @@ var
       if (opts.tunneled) {
         if (opts.browserstack) {
           tunnel = new BrowserStackTunnel({
-            key: opts.key,
+            key: opts.browserstackKey,
             force: true,
             hosts: [{
               name: ip,
@@ -86,8 +86,10 @@ var
         }
 
         tunnel.start(function() {
-          protractor(opts, function() {
-            tunnel.stop(cb);
+          protractor(opts, function(code) {
+            tunnel.stop(function() {
+              cb(code);
+            });
           });
         });
       } else {

@@ -6,8 +6,10 @@ module.exports = function(grunt) {
     var
       done = this.async(),
       opts = this.options({
-        user: process.env.SAUCE_USERNAME || process.env.BROWSERSTACK_USER || '',
-        key: process.env.SAUCE_ACCESS_KEY || process.env.BROWSERSTACK_KEY || '',
+        user: process.env.SAUCE_USERNAME || '',
+        key: process.env.SAUCE_ACCESS_KEY || '',
+        browserstackUser: process.env.BROWSERSTACK_USER || '',
+        browserstackKey: process.env.BROWSERSTACK_KEY || '',
         build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
         tunneled: process.env.TRAVIS ? true : false,
         tunnelid: process.env.TRAVIS_JOB_NUMBER || 'local',
