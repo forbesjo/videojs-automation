@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', function() {
     if (!process.env.TRAVIS || process.env.TRAVIS_PULL_REQUEST === 'false') {
-      grunt.task.run(['jshint', 'videojs_automation']);
+      grunt.task.run(['jshint', 'videojs_automation:test']);
     } else {
       grunt.task.run('jshint');
     }
