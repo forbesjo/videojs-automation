@@ -1,6 +1,6 @@
 {
   "name": "videojs-automation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Automation for video.js projects.",
   "scripts": {
     "test": "grunt test"
