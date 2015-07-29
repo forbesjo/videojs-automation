@@ -13,9 +13,7 @@ module.exports = function(grunt) {
       browserstack: {
         options: {
           browserstack: true,
-          specs: ['test/sanity-test.js', 'test/test.js'],
-          user: process.env.BROWSERSTACK_USER,
-          key: process.env.BROWSERSTACK_KEY
+          specs: ['test/sanity-test.js', 'test/test.js']
         }
       }
     }
