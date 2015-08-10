@@ -9,13 +9,7 @@ module.exports = function(grunt) {
     },
 
     videojs_automation: {
-      test: ['test/sanity-test.js', 'test/test.js'],
-      browserstack: {
-        options: {
-          browserstack: true,
-          specs: ['test/sanity-test.js', 'test/test.js']
-        }
-      }
+      test: ['test/sanity-test.js', 'test/test.js']
     }
   });
 

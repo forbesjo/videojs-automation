@@ -26,7 +26,7 @@ Player.prototype.fullscreen = function() {
 };
 
 Player.prototype.hasCss = function(css) {
-  return browser.wait($(css).isPresent, timeout, 'Element by "+css+" could not be found')
+  return browser.wait($(css).isPresent, timeout, 'Element by "' + css + '" could not be found')
     .then(function(res) {
       return true;
     }, function(err) {

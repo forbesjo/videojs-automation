@@ -13,50 +13,21 @@ exports.config = {
       var multiCapabilities;
 
       if (process.env.CI) {
-        if (process.env.BROWSERSTACK) {
-          multiCapabilities = [{
-            browserName: 'internet explorer',
-            os: 'Windows',
-            os_version: '8.1',
-            browser_version: '11',
-            'browserstack.ie.driver': '2.46'
-          }, {
-            browserName: 'safari',
-            os: 'OS X',
-            os_version: 'Yosemite',
-            browser_version: '8'
-          }, {
-            browserName: 'firefox',
-            os: 'OS X',
-            os_version: 'Yosemite',
-            firefox_profile: encodedProfile,
-            loggingPrefs: {
-              browser: 'SEVERE'
-            }
-          }, {
-            browserName: 'chrome',
-            os: 'OS X',
-            os_version: 'Yosemite'
-          }];
-        } else {
-          multiCapabilities = [{
-            browserName: 'internet explorer',
-            platform: 'Windows 8.1',
-            version: '11'
-          }, {
-            browserName: 'chrome',
-            platform: 'Windows 8.1'
-              // }, {
-              //   browserName: 'firefox',
-              //   platform: 'Linux',
-              //   firefox_profile: encodedProfile,
-              //   loggingPrefs: {
-              //     browser: 'SEVERE'
-              //   }
-          }];
-        }
-
-        multiCapabilities.map(function(browser) {
+        multiCapabilities = [{
+          browserName: 'internet explorer',
+          platform: 'Windows 8.1',
+          version: '11'
+        }, {
+          browserName: 'chrome',
+          platform: 'Windows 8.1'
+            // }, {
+            //   browserName: 'firefox',
+            //   platform: 'Linux',
+            //   firefox_profile: encodedProfile,
+            //   loggingPrefs: {
+            //     browser: 'SEVERE'
+            //   }
+        }].map(function(browser) {
           if (process.env.TRAVIS) {
             browser.name = process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH;
           } else {
@@ -64,15 +35,10 @@ exports.config = {
           }
 
           browser.build = process.env.BUILD;
-          if (process.env.BROWSERSTACK) {
-            browser['browserstack.user'] = process.env.BROWSERSTACK_USER;
-            browser['browserstack.key'] = process.env.BROWSERSTACK_KEY;
-            browser['browserstack.local'] = 'true';
-          } else {
-            browser['tunnel-identifier'] = process.env.TUNNEL_ID;
-            browser.recordVideo = false;
-            browser.recordScreenshots = false;
-          }
+          browser['tunnel-identifier'] = process.env.TUNNEL_ID;
+          browser.recordVideo = false;
+          browser.recordScreenshots = false;
+
           return browser;
         });
       } else {
