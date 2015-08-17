@@ -9,7 +9,7 @@ var Player = require('../src/player');
   suite: 'videojs-contrib-dash',
   isBrowserSupported: function() {
     // the test page does not work in Safari
-    return /firefox|chrome|internet explorer/i.test(browser.browserName);
+    return /chrome|internet explorer/i.test(browser.browserName);
   }
 }].map(function(p) {
   if (p.isBrowserSupported()) {

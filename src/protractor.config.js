@@ -14,19 +14,19 @@ exports.config = {
 
       if (process.env.CI) {
         multiCapabilities = [{
-          browserName: 'internet explorer',
-          platform: 'Windows 8.1',
-          version: '11'
-        }, {
-          browserName: 'chrome',
-          platform: 'Windows 8.1'
-            // }, {
-            //   browserName: 'firefox',
-            //   platform: 'Linux',
-            //   firefox_profile: encodedProfile,
-            //   loggingPrefs: {
-            //     browser: 'SEVERE'
-            //   }
+            browserName: 'internet explorer',
+            platform: 'Windows 8.1',
+            version: '11'
+          }, {
+            browserName: 'chrome',
+            platform: 'Windows 8.1'
+          }, {
+          browserName: 'firefox',
+          platform: 'Linux',
+          firefox_profile: encodedProfile,
+          loggingPrefs: {
+            browser: 'SEVERE'
+          }
         }].map(function(browser) {
           if (process.env.TRAVIS) {
             browser.name = process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH;
