@@ -11,6 +11,7 @@
     "url": "https://github.com/forbesjo/videojs-automation.git "
   },
   "dependencies": {
+    "browserstack": "^1.2.0",
     "firefox-profile": "^0.3.11",
     "grunt": "^0.4.5",
     "grunt-contrib-connect": "^0.11.2",

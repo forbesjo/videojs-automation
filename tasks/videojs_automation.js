@@ -80,20 +80,34 @@ module.exports = function(grunt) {
       });
 
       if (process.env.CI && opts.browserstack) {
-        grunt.task.run([
-          'localstack',
-          'connect:videojs_automation',
-          'protractor:videojs_automation',
-          'localstack:stop'
-        ]);
+
+        // wait until a VM is open
+        var BS = require('browserstack');
+        var bs = new BS.createClient({
+          username: opts.browserstackUser,
+          password: opts.browserstackKey
+        });
+
+        bs.getApiStatus(function(err, status) {
+          console.log('Browserstack VMs available: ' + (status.running_sessions !== status.sessions_limit));
+
+          grunt.task.run([
+            'localstack',
+            'connect:videojs_automation',
+            'protractor:videojs_automation',
+            'localstack:stop'
+          ]);
+
+          done();
+        });
       } else {
         grunt.task.run([
           'connect:videojs_automation',
           'protractor:videojs_automation'
         ]);
-      }
 
-      done();
+        done();
+      }
     });
   });
 };
