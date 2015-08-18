@@ -59,7 +59,7 @@ module.exports = function(grunt) {
           process.env.BROWSERSTACK_USER = opts.browserstackUser;
           process.env.BROWSERSTACK_KEY = opts.browserstackKey;
           protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
-          protractorOptions.options.args.maxSessions = 2;
+          protractorOptions.options.args.maxSessions = 1;
         } else {
           protractorOptions.options.args.sauceUser = opts.user;
           protractorOptions.options.args.sauceKey = opts.key;
