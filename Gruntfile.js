@@ -9,7 +9,13 @@ module.exports = function(grunt) {
     },
 
     videojs_automation: {
-      test: ['test/sanity-test.js', 'test/test.js']
+      test: ['test/sanity-test.js', 'test/test.js'],
+      browserstack: {
+        options: {
+          specs: ['test/sanity-test.js', 'test/test.js'],
+          browserstack: true
+        }
+      }
     }
   });
 
@@ -18,7 +24,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', function() {
     if (!process.env.TRAVIS || process.env.TRAVIS_PULL_REQUEST === 'false') {
-      grunt.task.run(['jshint', 'videojs_automation:test']);
+      grunt.task.run(['jshint', 'videojs_automation']);
     } else {
       grunt.task.run('jshint');
     }

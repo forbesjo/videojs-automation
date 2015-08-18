@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 
   grunt.loadTasks(resolveTasks('grunt-contrib-connect'));
   grunt.loadTasks(resolveTasks('grunt-protractor-runner'));
+  grunt.loadTasks(resolveTasks('grunt-localstack'));
 
   grunt.registerMultiTask('videojs_automation', function() {
     var
@@ -22,6 +23,9 @@ module.exports = function(grunt) {
       opts = this.options({
         user: process.env.SAUCE_USERNAME || '',
         key: process.env.SAUCE_ACCESS_KEY || '',
+        browserstack: false,
+        browserstackUser: process.env.BROWSERSTACK_USER || '',
+        browserstackKey: process.env.BROWSERSTACK_KEY || '',
         build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
         tunnelid: process.env.TRAVIS_JOB_NUMBER || 'local',
         specs: Array.isArray(this.data) ? this.data : []
@@ -50,17 +54,44 @@ module.exports = function(grunt) {
         process.env.BUILD = opts.build;
         process.env.TUNNEL_ID = opts.tunnelid;
 
-        protractorOptions.options.args.sauceUser = opts.user;
-        protractorOptions.options.args.sauceKey = opts.key;
-        protractorOptions.options.args.maxSessions = 6;
+        if (opts.browserstack) {
+          process.env.BROWSERSTACK = opts.browserstack;
+          process.env.BROWSERSTACK_USER = opts.browserstackUser;
+          process.env.BROWSERSTACK_KEY = opts.browserstackKey;
+          protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
+          protractorOptions.options.args.maxSessions = 2;
+        } else {
+          protractorOptions.options.args.sauceUser = opts.user;
+          protractorOptions.options.args.sauceKey = opts.key;
+          protractorOptions.options.args.maxSessions = 6;
+        }
       }
 
       grunt.config.set('protractor.videojs_automation', protractorOptions);
+      grunt.config.set('localstack', {
+        options: {
+          key: opts.browserstackKey,
+          force: true,
+          hosts: [{
+            name: 'localhost',
+            port: port
+          }]
+        }
+      });
 
-      grunt.task.run([
-        'connect:videojs_automation',
-        'protractor:videojs_automation'
-      ]);
+      if (process.env.CI && opts.browserstack) {
+        grunt.task.run([
+          'localstack',
+          'connect:videojs_automation',
+          'protractor:videojs_automation',
+          'localstack:stop'
+        ]);
+      } else {
+        grunt.task.run([
+          'connect:videojs_automation',
+          'protractor:videojs_automation'
+        ]);
+      }
 
       done();
     });
