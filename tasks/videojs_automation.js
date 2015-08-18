@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       opts = this.options({
         user: process.env.SAUCE_USERNAME || '',
         key: process.env.SAUCE_ACCESS_KEY || '',
-        browserstack: false,
+        browserstack: process.env.BROWSERSTACK || false,
         browserstackUser: process.env.BROWSERSTACK_USER || '',
         browserstackKey: process.env.BROWSERSTACK_KEY || '',
         build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
