@@ -1,11 +1,9 @@
 # videojs-automation
 [![Build Status](https://travis-ci.org/forbesjo/videojs-automation.svg?branch=master)](https://travis-ci.org/forbesjo/videojs-automation)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/forbesjo-vjs.svg)](https://saucelabs.com/u/forbesjo-vjs)
-
 Automation for video.js projects.
 
-_Powered by [BrowserStack](https://www.browserstack.com)_
+_Powered by [BrowserStack](https://www.browserstack.com) and [Sauce Labs](https://saucelabs.com)_
 
 ## Getting Started
 
