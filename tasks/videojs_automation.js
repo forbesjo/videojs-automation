@@ -80,7 +80,6 @@ module.exports = function(grunt) {
       });
 
       if (process.env.CI && opts.browserstack) {
-
         // wait until a VM is open
         var BS = require('browserstack');
         var bs = new BS.createClient({
