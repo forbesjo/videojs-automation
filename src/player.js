@@ -7,7 +7,7 @@ var Player = function(url) {
     player = videojs(document.querySelectorAll('.video-js')[0]);
     player.ready(function() {
       // Disable control bar autohide
-      player.options().inactivityTimeout = 0;
+      player.options_.inactivityTimeout = 0;
       done();
     });
   });
