@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     },
 
     videojs_automation: {
-      test: ['test/sanity-test.js', 'test/test.js'],
+      saucelabs: ['test/sanity-test.js', 'test/test.js'],
       browserstack: {
         options: {
           specs: ['test/sanity-test.js', 'test/test.js'],
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     if (!process.env.TRAVIS || process.env.TRAVIS_PULL_REQUEST === 'false') {
       grunt.task.run([
         'jshint',
-        'videojs_automation:test',
+        // 'videojs_automation:saucelabs',
         'videojs_automation:browserstack'
       ]);
     } else {
