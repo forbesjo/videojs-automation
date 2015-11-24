@@ -48,8 +48,8 @@ module.exports = function(grunt) {
 
       if (process.env.CI) {
         process.env.BUILD = opts.build;
-        process.env.BROWSERSTACK_USER = opts.browserstackUser;
-        process.env.BROWSERSTACK_KEY = opts.browserstackKey;
+        process.env.BROWSERSTACK_USER = opts.user;
+        process.env.BROWSERSTACK_KEY = opts.key;
         protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
         protractorOptions.options.args.maxSessions = 1;
       }
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       grunt.config.set('protractor.videojs_automation', protractorOptions);
       grunt.config.set('localstack', {
         options: {
-          key: opts.browserstackKey,
+          key: opts.key,
           force: true,
           hosts: [{
             name: 'localhost',

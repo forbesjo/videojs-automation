@@ -13,30 +13,30 @@ exports.config = {
       var multiCapabilities;
 
       if (process.env.CI) {
-          multiCapabilities = [{
-            browserName: 'internet explorer',
-            os: 'Windows',
-            os_version: '8.1',
-            browser_version: '11',
-            'browserstack.ie.driver': '2.46'
-          }, {
-            browserName: 'safari',
-            os: 'OS X',
-            os_version: 'Yosemite',
-            browser_version: '8'
-          }, {
-            browserName: 'firefox',
-            os: 'OS X',
-            os_version: 'Yosemite',
-            firefox_profile: encodedProfile,
-            loggingPrefs: {
-              browser: 'SEVERE'
-            }
-          }, {
-            browserName: 'chrome',
-            os: 'OS X',
-            os_version: 'Yosemite'
-          }].map(function(browser) {
+        multiCapabilities = [{
+          browserName: 'internet explorer',
+          os: 'Windows',
+          os_version: '8.1',
+          browser_version: '11',
+          'browserstack.ie.driver': '2.46'
+        }, {
+          browserName: 'safari',
+          os: 'OS X',
+          os_version: 'Yosemite',
+          browser_version: '8'
+        }, {
+          browserName: 'firefox',
+          os: 'OS X',
+          os_version: 'Yosemite',
+          firefox_profile: encodedProfile,
+          loggingPrefs: {
+            browser: 'SEVERE'
+          }
+        }, {
+          browserName: 'chrome',
+          os: 'OS X',
+          os_version: 'Yosemite'
+        }].map(function(browser) {
           if (process.env.TRAVIS) {
             browser.name = process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH;
           } else {
