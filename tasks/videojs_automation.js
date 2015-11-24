@@ -21,13 +21,9 @@ module.exports = function(grunt) {
     var
       done = this.async(),
       opts = this.options({
-        user: process.env.SAUCE_USERNAME || '',
-        key: process.env.SAUCE_ACCESS_KEY || '',
-        browserstack: process.env.BROWSERSTACK || false,
-        browserstackUser: process.env.BROWSERSTACK_USER || '',
-        browserstackKey: process.env.BROWSERSTACK_KEY || '',
+        user: process.env.BROWSERSTACK_USER || '',
+        key: process.env.BROWSERSTACK_KEY || '',
         build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
-        tunnelid: process.env.TRAVIS_JOB_NUMBER || 'local',
         specs: Array.isArray(this.data) ? this.data : []
       }),
       protractorOptions;
@@ -52,19 +48,10 @@ module.exports = function(grunt) {
 
       if (process.env.CI) {
         process.env.BUILD = opts.build;
-        process.env.TUNNEL_ID = opts.tunnelid;
-
-        if (opts.browserstack) {
-          process.env.BROWSERSTACK = opts.browserstack;
-          process.env.BROWSERSTACK_USER = opts.browserstackUser;
-          process.env.BROWSERSTACK_KEY = opts.browserstackKey;
-          protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
-          protractorOptions.options.args.maxSessions = 1;
-        } else {
-          protractorOptions.options.args.sauceUser = opts.user;
-          protractorOptions.options.args.sauceKey = opts.key;
-          protractorOptions.options.args.maxSessions = 6;
-        }
+        process.env.BROWSERSTACK_USER = opts.browserstackUser;
+        process.env.BROWSERSTACK_KEY = opts.browserstackKey;
+        protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
+        protractorOptions.options.args.maxSessions = 1;
       }
 
       grunt.config.set('protractor.videojs_automation', protractorOptions);
@@ -79,12 +66,12 @@ module.exports = function(grunt) {
         }
       });
 
-      if (process.env.CI && opts.browserstack) {
+      if (process.env.CI) {
         // wait until a VM is open
         var BS = require('browserstack');
         var bs = new BS.createClient({
-          username: opts.browserstackUser,
-          password: opts.browserstackKey
+          username: opts.user,
+          password: opts.key
         });
 
         bs.getApiStatus(function(err, status) {
