@@ -4,7 +4,7 @@ var util = require('util'),
 var Player = function(url) {
   browser.get(url);
   browser.executeAsyncScript(function(done) {
-    player = videojs(document.querySelectorAll('.video-js')[0]);
+    player = videojs(Object.keys(videojs.getPlayers())[0]);
     player.ready(function() {
       // Disable control bar autohide
       player.options_.inactivityTimeout = 0;

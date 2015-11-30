@@ -3,20 +3,18 @@
 
 <head>
   <title>video.js</title>
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements-->
-  <!--if lt IE 9script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
-  -->
+  <!--[if IE 8]><script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script><!--<![endif]-->
   <link href="../node_modules/video.js/dist/video-js.css" rel="stylesheet">
-  <script src="../node_modules/video.js/dist/video.js"></script>
 </head>
 
 <body>
-  <video id="vjs_video_3" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360" data-setup='{}'>
+  <video id="example" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360" data-setup='{}'>
     <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
     <source src="http://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
     </p>
   </video>
+  <script src="../node_modules/video.js/dist/video.js"></script>
 </body>
 
 </html>
