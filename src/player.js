@@ -72,7 +72,7 @@ Player.prototype.consoleLog = function() {
     var filteredLogs = [];
 
     filteredLogs = logs.filter(function(log) {
-      return !/favicon/.test(log.message);
+      return /severe/i.test(log.level.name) && !/favicon/i.test(log.message);
     });
     if (filteredLogs.length > 0) {
       console.log('Console log: ' + util.inspect(filteredLogs));

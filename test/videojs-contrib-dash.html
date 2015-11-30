@@ -9,20 +9,15 @@
 </head>
 
 <body>
-  <video id="example" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+  <video id="example" class="video-js vjs-default-skin" controls width="640" height="360">
+    <source
+    src="http://wams.edgesuite.net/media/SintelTrailer_MP4_from_WAME/sintel_trailer-1080p.ism/manifest(format=mpd-time-csf)"
+    type="application/dash+xml" />
   </video>
   <script src="../node_modules/video.js/dist/video.js"></script>
   <script src="../node_modules/dashjs/dist/dash.all.js"></script>
   <script src="../node_modules/videojs-contrib-dash/dist/videojs-dash.min.js"></script>
-  <script>
-    var player = videojs('example');
-    player.ready(function(){
-      player.src({
-        src: "http://wams.edgesuite.net/media/SintelTrailer_MP4_from_WAME/sintel_trailer-1080p.ism/manifest(format=mpd-time-csf)",
-        type: "application/dash+xml"
-      });
-    });
-  </script>
+  <script> var player = videojs('example');</script>
 </body>
 
 </html>

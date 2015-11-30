@@ -1,5 +1,6 @@
 var
   q = require('q'),
+  browsers = require('detect-browsers').getInstalledBrowsers(),
   FirefoxProfile = require('firefox-profile'),
   firefoxProfile = new FirefoxProfile();
 
@@ -47,10 +48,7 @@ exports.config = {
           browserName: 'firefox',
           os: 'OS X',
           os_version: 'Yosemite',
-          firefox_profile: encodedProfile,
-          loggingPrefs: {
-            browser: 'SEVERE'
-          }
+          firefox_profile: encodedProfile
         }, {
           browserName: 'chrome',
           os: 'OS X',
@@ -70,15 +68,21 @@ exports.config = {
           return browser;
         });
       } else {
-        multiCapabilities = [{
-          browserName: 'chrome',
-        }, {
-          browserName: 'firefox',
-          firefox_profile: encodedProfile,
-          loggingPrefs: {
-            browser: 'SEVERE'
-          }
-        }];
+        multiCapabilities = browsers
+          .filter(function(browser) {
+            return /chrome|firefox|safari/i.test(browser.name);
+          })
+          .map(function(browser) {
+            var obj = {
+              browserName: browser.name.toLowerCase()
+            };
+
+            if (/firefox/i.test(browser.name)) {
+              obj.firefox_profile = encodedProfile;
+            }
+
+            return obj;
+          });
       }
 
       deferred.resolve(multiCapabilities);
