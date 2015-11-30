@@ -18,7 +18,26 @@ exports.config = {
           os: 'Windows',
           os_version: '8.1',
           browser_version: '11',
-          'browserstack.ie.driver': '2.46'
+        }, {
+          browserName: 'internet explorer',
+          os: 'Windows',
+          os_version: '7',
+          browser_version: '11',
+        }, {
+          browserName: 'internet explorer',
+          os: 'Windows',
+          os_version: '7',
+          browser_version: '10',
+        }, {
+          browserName: 'internet explorer',
+          os: 'Windows',
+          os_version: '7',
+          browser_version: '9',
+        }, {
+          browserName: 'internet explorer',
+          os: 'Windows',
+          os_version: '7',
+          browser_version: '8',
         }, {
           browserName: 'safari',
           os: 'OS X',
