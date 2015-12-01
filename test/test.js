@@ -30,7 +30,7 @@ var Player = require('../src/player');
         }
       });
 
-      it('should have no player errors', function() {
+      xit('should have no player errors', function() {
         expect(player.error()).toBeNull();
       });
 
@@ -39,20 +39,20 @@ var Player = require('../src/player');
         expect(player.isPlaying()).toBe(true);
       });
 
-      it('should set current time', function() {
+      xit('should set current time', function() {
         player.bigPlayButton().click();
         player.playControl().click();
         expect(player.currentTime(3)).toBeCloseTo(3, 0);
       });
 
-      it('should seek (forwards and backwards)', function() {
+      xit('should seek (forwards and backwards)', function() {
         player.bigPlayButton().click();
         player.playControl().click();
         expect(player.currentTime(4)).toBeCloseTo(4, 0);
         expect(player.currentTime(2)).toBeCloseTo(2, 0);
       });
 
-      it('should progress', function() {
+      xit('should progress', function() {
         player.bigPlayButton().click();
         var time1 = player.currentTime();
         browser.executeAsyncScript(function(done) {
@@ -64,7 +64,7 @@ var Player = require('../src/player');
         expect(time1).toBeLessThan(time2);
       });
 
-      it('should pause and resume', function() {
+      xit('should pause and resume', function() {
         player.bigPlayButton().click();
         expect(player.isPlaying()).toBe(true);
         player.playControl().click();

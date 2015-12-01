@@ -1,5 +1,6 @@
 var
   q = require('q'),
+  now = Date.now(),
   browsers = require('detect-browsers').getInstalledBrowsers(),
   FirefoxProfile = require('firefox-profile'),
   firefoxProfile = new FirefoxProfile();
@@ -15,6 +16,11 @@ exports.config = {
 
       if (process.env.CI) {
         multiCapabilities = [{
+          //   browserName: 'edge',
+          //   os: 'Windows',
+          //   os_version: '10',
+          //   browser_version: '12',
+          // }, {
           browserName: 'internet explorer',
           os: 'Windows',
           os_version: '8.1',
@@ -24,46 +30,45 @@ exports.config = {
           os: 'Windows',
           os_version: '7',
           browser_version: '11',
-        }, {
-          browserName: 'internet explorer',
-          os: 'Windows',
-          os_version: '7',
-          browser_version: '10',
-        }, {
-          browserName: 'internet explorer',
-          os: 'Windows',
-          os_version: '7',
-          browser_version: '9',
-        }, {
-          browserName: 'internet explorer',
-          os: 'Windows',
-          os_version: '7',
-          browser_version: '8',
+          // }, {
+          //   browserName: 'internet explorer',
+          //   os: 'Windows',
+          //   os_version: '7',
+          //   browser_version: '10',
+          // }, {
+          //   browserName: 'internet explorer',
+          //   os: 'Windows',
+          //   os_version: '7',
+          //   browser_version: '9',
+          // }, {
+          //   browserName: 'internet explorer',
+          //   os: 'Windows',
+          //   os_version: '7',
+          //   browser_version: '8',
         }, {
           browserName: 'safari',
           os: 'OS X',
-          os_version: 'Yosemite',
-          browser_version: '8'
+          os_version: 'El Capitan',
+          browser_version: '9'
         }, {
           browserName: 'firefox',
-          os: 'OS X',
-          os_version: 'Yosemite',
+          os: 'Windows',
           firefox_profile: encodedProfile
         }, {
           browserName: 'chrome',
-          os: 'OS X',
-          os_version: 'Yosemite'
+          os: 'Windows',
         }].map(function(browser) {
           if (process.env.TRAVIS) {
             browser.name = process.env.TRAVIS_BUILD_NUMBER + process.env.TRAVIS_BRANCH;
           } else {
-            browser.name = browser.browserName + '-' + (browser.version || 'latest') + '-' + browser.platform;
+            browser.name = browser.browserName + '-' + (browser.browser_version || 'latest') + '-' + browser.os + (!browser.os_version ? '' : '-' + browser.os_version);
           }
 
-          browser.build = process.env.BUILD;
+          browser.build = process.env.BUILD || 'local-' + now;
           browser['browserstack.user'] = process.env.BROWSERSTACK_USER;
           browser['browserstack.key'] = process.env.BROWSERSTACK_KEY;
           browser['browserstack.local'] = 'true';
+          browser['browserstack.video'] = 'false';
 
           return browser;
         });
@@ -90,6 +95,8 @@ exports.config = {
 
     return deferred.promise;
   },
+
+  maxSessions: process.env.CI ? process.env.MAX_SESSIONS : -1,
 
   onPrepare: function() {
     var jasmineReporters = require('jasmine-reporters');

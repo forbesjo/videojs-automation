@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   grunt.loadTasks(resolveTasks('grunt-contrib-connect'));
   grunt.loadTasks(resolveTasks('grunt-protractor-runner'));
   grunt.loadTasks(resolveTasks('grunt-localstack'));
+  grunt.loadTasks(resolveTasks('grunt-continue'));
 
   grunt.registerMultiTask('videojs_automation', function() {
     var
@@ -23,7 +24,8 @@ module.exports = function(grunt) {
       opts = this.options({
         user: process.env.BROWSERSTACK_USER || '',
         key: process.env.BROWSERSTACK_KEY || '',
-        build: process.env.TRAVIS_BUILD_NUMBER || 'local-' + Date.now(),
+        build: process.env.TRAVIS_BUILD_NUMBER,
+        maxSessions: 1,
         specs: Array.isArray(this.data) ? this.data : []
       }),
       protractorOptions;
@@ -51,13 +53,14 @@ module.exports = function(grunt) {
         process.env.BROWSERSTACK_USER = opts.user;
         process.env.BROWSERSTACK_KEY = opts.key;
         protractorOptions.options.args.seleniumAddress = 'http://hub.browserstack.com/wd/hub';
-        protractorOptions.options.args.maxSessions = 1;
+        process.env.MAX_SESSIONS = opts.maxSessions;
       }
 
       grunt.config.set('protractor.videojs_automation', protractorOptions);
       grunt.config.set('localstack', {
         options: {
           key: opts.key,
+          onlyAutomate: true,
           force: true,
           hosts: [{
             name: 'localhost',
@@ -80,8 +83,11 @@ module.exports = function(grunt) {
           grunt.task.run([
             'localstack',
             'connect:videojs_automation',
+            'continue:on',
             'protractor:videojs_automation',
-            'localstack:stop'
+            'continue:off',
+            'localstack:stop',
+            'continue:fail-on-warning'
           ]);
 
           done();

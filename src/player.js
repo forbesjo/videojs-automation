@@ -5,11 +5,7 @@ var Player = function(url) {
   browser.get(url);
   browser.executeAsyncScript(function(done) {
     player = videojs(Object.keys(videojs.getPlayers())[0]);
-    player.ready(function() {
-      // Disable control bar autohide
-      player.options_.inactivityTimeout = 0;
-      done();
-    });
+    player.ready(done);
   });
 };
 
@@ -39,7 +35,7 @@ Player.prototype.isPlaying = function() {
     player.one('timeupdate', function() {
       var result = !player.paused() &&
         !player.ended() &&
-        player.error() === null;
+        !player.error();
       done(result);
     });
   }).then(function(res) {
